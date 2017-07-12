@@ -3,7 +3,7 @@ package game;
 import java.awt.*;
 import java.util.Random;
 
-public class Pipe implements Updatable, Renderable {
+public class Pipes implements Updatable, Renderable {
 
     private int pipeWidth = 100;
     private int pipeVerticalSpacing = 210;
@@ -20,7 +20,7 @@ public class Pipe implements Updatable, Renderable {
 
     private Random rand;
 
-    public Pipe() {
+    public Pipes() {
         rand = new Random();
         resetPipes();
     }
