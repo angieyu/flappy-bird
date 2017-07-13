@@ -47,10 +47,36 @@ public class Bird implements Updatable, Renderable {
     public void update(Input input) {
         y += yVel;
         yVel += gravity;
+
+        if (y < 0) {
+            y = 0;
+            yVel = 0;
+        }
+        if (input.isSpacePressed()) {
+            flap();
+        }
+
+        float[] pipeCoords = pipes.getCurrentPipe();
+        float pipeX = pipeCoords[0];
+        float pipeY = pipeCoords[1];
+
+        if ((x >= pipeX && x <= pipeX + pipes.getPipeWidth())
+                && (y <= pipeY || y >= pipeY + pipes.getPipeVerticalSpacing()) || y >= Game.HEIGHT) {
+            pipes.resetPipes();
+            resetBird();
+            score = 0;
+        } else {
+            int currentPipeID = pipes.getCurrentPipeID();
+            score = (scoredPipe != currentPipeID) ? score + 1 : score;
+            scoredPipe = currentPipeID;
+        }
     }
 
     @Override
     public void render(Graphics2D g, float interpolation) {
-
+        g.setColor(Color.blue);
+        g.drawImage(yVel <= 0 ? flapUp : flapDown, (int) x, (int) (y + (yVel * interpolation)), null);
+        g.setFont(gameFont);
+        g.drawString("Score: " + score, 20, 50);
     }
 }

@@ -50,6 +50,7 @@ public class Game {
 
         // init input
         input = new Input();
+        game.addKeyListener(input);
         // game loop
         final int TICKS_PER_SECOND = 60;
         final int TIME_PER_TICK = 1000 / TICKS_PER_SECOND;
